@@ -1,0 +1,26 @@
+import React from 'react';
+import { fetcher } from '../helpers/api';
+import { type User } from '../models/user';
+
+export default function useUser(){
+    const [user, setUser] = React.useState<User | null>(null);
+    const [requestStatus, setRequestStatus] = React.useState<"idle" | "loading" | "saving">("idle");
+    
+    const getUser = React.useCallback( async  (userName: string) => {
+        try{
+            setRequestStatus('loading');
+            const data = await fetcher(`/users/${userName}`);
+            setUser(data);
+        } catch(e)
+        {
+            console.error(e);
+        } finally{
+            setRequestStatus('idle')
+        }
+    }, [])
+    return {
+        user,
+        userRequestStatus: requestStatus,
+        getUser
+    };
+}
