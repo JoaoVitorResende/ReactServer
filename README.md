@@ -1,6 +1,6 @@
 # ReactServer
 
-Aplicação em **React + Vite + TypeScript** para gerenciamento de usuários, consumindo uma API REST local (`json-server`).
+A **React + Vite + TypeScript** application for user management, consuming a local REST API (`json-server`).
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -9,66 +9,66 @@ Aplicação em **React + Vite + TypeScript** para gerenciamento de usuários, co
 ![pnpm](https://img.shields.io/badge/pnpm-F69220?style=for-the-badge&logo=pnpm&logoColor=white)
 ![json-server](https://img.shields.io/badge/json--server-000000?style=for-the-badge&logo=json&logoColor=white)
 
-## Tecnologias
+## Tech Stack
 
 - **React** — UI
 - **Vite** — build tool / dev server
-- **TypeScript** — tipagem estática
-- **TanStack Query** — data fetching, cache e gerenciamento de estado assíncrono
-- **json-server** — API REST fake para desenvolvimento
+- **TypeScript** — static typing
+- **TanStack Query** — data fetching, caching, and async state management
+- **json-server** — fake REST API for development
 
-## Funcionalidades
+## Features
 
-- 🔍 **Buscar usuário** por identificador (`GET /users/:id`)
-- ➕ **Criar usuário** via formulário (`POST /users`)
-- 📋 **Listar todos os usuários** (`GET /users`, via TanStack Query)
+- 🔍 **Get user** by identifier (`GET /users/:id`)
+- ➕ **Create user** via form (`POST /users`)
+- 📋 **List all users** (`GET /users`, via TanStack Query)
 
-## Pré-requisitos
+## Prerequisites
 
-- [Node.js](https://nodejs.org/) instalado
-- Gerenciador de pacotes: `npm`, `yarn` ou `pnpm`
+- [Node.js](https://nodejs.org/) installed
+- Package manager: `pnpm`
 
-## Instalação
+## Installation
 
-Clone o repositório e instale as dependências:
+Clone the repository and install dependencies:
 
 ```bash
-git clone <url-do-repositorio>
+git clone <repository-url>
 cd ReactServer/Servidor/server
 pnpm install
 ```
 
-## Rodando o projeto
+## Running the project
 
-O projeto precisa de **dois processos rodando ao mesmo tempo**: a API (`json-server`) e o frontend (`Vite`).
+The project requires **two processes running at the same time**: the API (`json-server`) and the frontend (`Vite`).
 
-### 1. Subir a API (json-server)
+### 1. Start the API (json-server)
 
 ```bash
 pnpm dlx json-server --watch db.json --port 3000
 ```
 
-A API ficará disponível em `http://localhost:3000`.
+The API will be available at `http://localhost:3000`.
 
-> 💡 Dica: para não digitar o comando toda vez, adicione um script no `package.json`:
+> 💡 Tip: to avoid typing the command every time, add a script to `package.json`:
 > ```json
 > "scripts": {
 >   "server": "json-server --watch db.json --port 3000"
 > }
 > ```
-> E rode com `pnpm server`.
+> Then run it with `pnpm server`.
 
-### 2. Subir o frontend (Vite)
+### 2. Start the frontend (Vite)
 
-Em outro terminal:
+In another terminal:
 
 ```bash
 pnpm dev
 ```
 
-O app ficará disponível em `http://localhost:5173` (porta padrão do Vite).
+The app will be available at `http://localhost:5173` (Vite's default port).
 
-## Estrutura do banco de dados (`db.json`)
+## Database structure (`db.json`)
 
 ```json
 {
@@ -79,7 +79,7 @@ O app ficará disponível em `http://localhost:5173` (porta padrão do Vite).
 }
 ```
 
-## Estrutura do projeto
+## Project structure
 
 ```
 Servidor/
@@ -87,16 +87,16 @@ Servidor/
     ├── src/
     │   ├── assets/
     │   ├── components/
-    │   │   ├── new-user-form.tsx   # Formulário de criação de usuário
-    │   │   ├── user-info.tsx       # Busca e exibe um usuário específico
-    │   │   └── users-list.tsx      # Lista todos os usuários (TanStack Query)
+    │   │   ├── new-user-form.tsx   # User creation form
+    │   │   ├── user-info.tsx       # Fetches and displays a specific user
+    │   │   └── users-list.tsx      # Lists all users (TanStack Query)
     │   ├── helpers/
-    │   │   └── api.ts              # Funções fetcher e api para chamadas HTTP
+    │   │   └── api.ts              # fetcher and api functions for HTTP calls
     │   ├── hooks/
-    │   │   ├── use-user.ts         # Hook com getUser, createUser e estado de requisição
-    │   │   └── use-users.ts        # Hook para listar todos os usuários (TanStack Query)
+    │   │   ├── use-user.ts         # Hook with getUser, createUser, and request status
+    │   │   └── use-users.ts        # Hook to list all users (TanStack Query)
     │   ├── models/
-    │   │   └── user.ts             # Tipagem da entidade User
+    │   │   └── user.ts             # User entity typing
     │   ├── App.tsx
     │   ├── index.css
     │   └── main.tsx
@@ -105,15 +105,15 @@ Servidor/
     └── package.json
 ```
 
-## Scripts disponíveis
+## Available scripts
 
-| Comando           | Descrição                              |
-|-------------------|------------------------------------------|
-| `pnpm dev`        | Inicia o servidor de desenvolvimento    |
-| `pnpm build`      | Gera a build de produção                |
-| `pnpm preview`    | Pré-visualiza a build de produção       |
+| Command           | Description                             |
+|--------------------|------------------------------------------|
+| `pnpm dev`        | Starts the development server           |
+| `pnpm build`      | Generates the production build          |
+| `pnpm preview`    | Previews the production build           |
 
-## Observações
+## Notes
 
-- A URL base da API está fixada em `http://localhost:3000` nos arquivos `helpers/api.ts`. Caso o backend rode em outra porta/host, ajuste esse valor.
-- Certifique-se de que o `json-server` esteja rodando **antes** de usar as funcionalidades de busca/criação de usuário, ou as requisições falharão.
+- The API base URL is hardcoded to `http://localhost:3000` in the `helpers/api.ts` files. If the backend runs on a different host/port, update this value.
+- Make sure `json-server` is running **before** using the search/create user features, or the requests will fail.
