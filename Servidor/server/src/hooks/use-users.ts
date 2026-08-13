@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetcher } from '../helpers/api';
+import { api, fetcher } from '../helpers/api';
 import { type User } from '../models/user';
 
 export default function useUser(){
@@ -17,10 +17,26 @@ export default function useUser(){
         } finally{
             setRequestStatus('idle')
         }
-    }, [])
+    }, []);
+
+    async function createUser(payload: User)
+    {
+        try{
+            setRequestStatus('saving');
+            await api("/users", {method:"POST", body: JSON.stringify(payload)})
+            alert("Usuario criado com sucesso")
+        }
+        catch(e){
+            console.error(e)
+        }finally{
+            setRequestStatus("idle")
+        }
+    }
+
     return {
         user,
         userRequestStatus: requestStatus,
-        getUser
+        getUser,
+        createUser
     };
 }

@@ -1,6 +1,20 @@
 {
   "users": [
-    { "id": "jao", "name": "jao", "userName": "jao123" },
-    { "id": "car", "name": "carlos", "userName": "carl123" }
-  ]
+    {
+      "id": "jao",
+      "name": "jao",
+      "userName": "jao123"
+    },
+    {
+      "id": "car",
+      "name": "carlos",
+      "userName": "carl123"
+    },
+    {
+      "userName": "teste",
+      "name": "teste",
+      "id": "wuD-dTQ530Q"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
