@@ -1,42 +1,16 @@
-import React from 'react';
-import { api, fetcher } from '../helpers/api';
-import { type User } from '../models/user';
+import { useQuery } from "@tanstack/react-query";
+import { type User } from "../models/user";
+import { fetcher } from "../helpers/api";
 
-export default function useUser(){
-    const [user, setUser] = React.useState<User | null>(null);
-    const [requestStatus, setRequestStatus] = React.useState<"idle" | "loading" | "saving">("idle");
-    
-    const getUser = React.useCallback( async  (userName: string) => {
-        try{
-            setRequestStatus('loading');
-            const data = await fetcher(`/users/${userName}`);
-            setUser(data);
-        } catch(e)
-        {
-            console.error(e);
-        } finally{
-            setRequestStatus('idle')
-        }
-    }, []);
+export default function useUsers() {
+  const queryKey = "/users";
+  const { data, isLoading } = useQuery<User[]>({
+    queryKey: queryKey.split("/"),
+    queryFn: () => fetcher(queryKey),
+  });
 
-    async function createUser(payload: User)
-    {
-        try{
-            setRequestStatus('saving');
-            await api("/users", {method:"POST", body: JSON.stringify(payload)})
-            alert("Usuario criado com sucesso")
-        }
-        catch(e){
-            console.error(e)
-        }finally{
-            setRequestStatus("idle")
-        }
-    }
-
-    return {
-        user,
-        userRequestStatus: requestStatus,
-        getUser,
-        createUser
-    };
+  return{
+    users: data || [],
+    isLoadingUsers: isLoading
+  }
 }
